@@ -8,9 +8,17 @@
             "name": "Listen for XDebug",
             "type": "php",
             "request": "launch",
-            "port": 9000,
+            "hostname": "0.0.0.0",
+            "port": 9003,
+            "log": true,
             "pathMappings": {
                 "/application/public": "${workspaceRoot}/public",
+            },
+            "ignore": ["**/vendor/**/*.php"],
+            "xdebugSettings": {
+                "max_children": 10000,
+                "max_data": 10000,
+                "show_hidden": 1
             }
         },
         {
@@ -19,7 +27,7 @@
             "request": "launch",
             "program": "${file}",
             "cwd": "${fileDirname}",
-            "port": 9000
+            "port": 9003,
         }
     ]
 }
