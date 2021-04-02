@@ -1,7 +1,7 @@
 version: "3.1"
 services:
   memcached:
-    image: memcached:alpine
+    image: memcached:latest
     container_name: project-memcached
     networks:
       - default
@@ -34,8 +34,10 @@ services:
       - "8888:80"
     environment:
       XDEBUG_CONFIG: remote_host=host.docker.internal
+      XDEBUG_SESSION: 1
       VIRTUAL_HOST: "project.localhost" # add this hostname in /etc/hosts to reverse proxy resolve
       VIRTUAL_POST: "8888"
+      SELF_SIGNED_HOST: "project.localhost" # https support via self-signed-proxy-companion to nginx
     depends_on:
       - db
     networks:
@@ -47,7 +49,7 @@ services:
     working_dir: /application
     volumes:
       - .:/application
-      - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php5/fpm/conf.d/99-overrides.ini
+      - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini # php 7.4
     environment:
       XDEBUG_CONFIG: remote_host=host.docker.internal
     depends_on:
@@ -58,5 +60,5 @@ services:
 networks:
   default:
     external:
-      name: networkName # if 'networkName' not exists: $ docker network create networkName
+      name: tsuNet # if 'tsuNet' not exists: $ docker network create tsuNet
 
