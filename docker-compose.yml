@@ -49,7 +49,8 @@ services:
     working_dir: /application
     volumes:
       - .:/application
-      - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini # php 7.4
+      # - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini # php 7.4
+      - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/8.0/fpm/conf.d/99-overrides.ini # php 8.0
     environment:
       XDEBUG_CONFIG: remote_host=host.docker.internal
     depends_on:
